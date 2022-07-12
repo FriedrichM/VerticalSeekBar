@@ -60,12 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:id="@+id/thumbCardView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:cardElevation="3dp">
+            android:layout_gravity="center_horizontal">
 
             <ImageView
                 android:id="@+id/thumbPlaceholder"
@@ -73,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null" />
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </FrameLayout>
 

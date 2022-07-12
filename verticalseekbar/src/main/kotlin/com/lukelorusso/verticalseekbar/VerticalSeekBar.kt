@@ -13,7 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
+import android.widget.LinearLayout
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.layout_verticalseekbar.view.*
 import kotlin.math.max
@@ -316,7 +316,7 @@ open class VerticalSeekBar @JvmOverloads constructor(
         if (initEnded) {
             initEnded = false // will be released at the end
 
-            var thumbCardView: CardView? = null // nullable for customization
+            var thumbCardView: LinearLayout? = null // nullable for customization
             try {
                 thumbCardView = thumb.findViewById(R.id.thumbCardView)
             } catch (ignored: NoSuchFieldError) {
@@ -349,7 +349,7 @@ open class VerticalSeekBar @JvmOverloads constructor(
 
             // Applying card corner radius
             barCardView.radius = barCornerRadius.toFloat()
-            thumbCardView?.radius = thumbContainerCornerRadius.toFloat()
+
 
             // Applying custom placeholders
             maxPlaceholder.setImageDrawable(maxPlaceholderDrawable) // can also be null
@@ -394,7 +394,7 @@ open class VerticalSeekBar @JvmOverloads constructor(
             val minPlaceholderLayoutParams = (minPlaceholder.layoutParams as LayoutParams)
             barCardView.layoutParams = (barCardView.layoutParams as LayoutParams).apply {
                 val thumbHalfHeight =
-                    if (showThumb) thumb.measuredHeight / 2
+                    if (showThumb) container.measuredWidth/2
                     else 0
 
                 val maxPlaceholderHalfHeight = (maxPlaceholder.drawable?.intrinsicHeight ?: 0) / 2
@@ -479,7 +479,7 @@ open class VerticalSeekBar @JvmOverloads constructor(
             } else thumb.setOnTouchListener(null)
 
             // here we intercept the click on the bar
-            if (clickToSetProgress) barCardView.setOnTouchListener { bar, event ->
+            if (clickToSetProgress) container.setOnTouchListener { bar, event ->
                 val positionY = event.y.roundToInt()
                 val action = {
                     val fillHeight = bar.measuredHeight
